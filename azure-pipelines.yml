@@ -10,8 +10,8 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'docker_hub_idubnori'
-  imageRepository: 'idubnori/windowscontainer-buildagent'
+  dockerRegistryServiceConnection: 'acr_idubnori'
+  imageRepository: 'windowscontainer-buildagent'
   dockerfilePath: './Dockerfile'
   tag: '$(Build.BuildId)'
   
