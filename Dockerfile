@@ -1,6 +1,6 @@
 # escape=`
 #FROM microsoft/dotnet-framework:4.7.2-sdk-windowsservercore-ltsc2016
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.7.2-windowsservercore-ltsc2019
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.7.2-20190709-windowsservercore-ltsc2019
 
 # Set up environment to collect install errors.
 COPY Install.cmd C:\TEMP\
