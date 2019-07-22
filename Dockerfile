@@ -39,23 +39,23 @@ RUN Install-PackageProvider -Name chocolatey -RequiredVersion 2.8.5.130 -Force; 
     Install-Package nuget.commandline -RequiredVersion 4.9.2 -Force; 
 
 # Install .NET Core SDK
-ENV DOTNET_SDK_VERSION 2.2.100
+# ENV DOTNET_SDK_VERSION 2.2.100
 
-RUN Invoke-WebRequest -OutFile dotnet.zip https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$Env:DOTNET_SDK_VERSION/dotnet-sdk-$Env:DOTNET_SDK_VERSION-win-x64.zip; `
-    $dotnet_sha512 = '87776c7124cd25b487b14b3d42c784ee31a424c7c8191ed55810294423f3e59ebf799660864862fc1dbd6e6c8d68bd529399426811846e408d8b2fee4ab04fe5'; `
-    if ((Get-FileHash dotnet.zip -Algorithm sha512).Hash -ne $dotnet_sha512) { `
-        Write-Host 'CHECKSUM VERIFICATION FAILED!'; `
-        exit 1; `
-    }; `
-    `
-    Expand-Archive dotnet.zip -force -DestinationPath $Env:ProgramFiles\dotnet; `
-    Remove-Item -Force dotnet.zip
+# RUN Invoke-WebRequest -OutFile dotnet.zip https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$Env:DOTNET_SDK_VERSION/dotnet-sdk-$Env:DOTNET_SDK_VERSION-win-x64.zip; `
+#     $dotnet_sha512 = '87776c7124cd25b487b14b3d42c784ee31a424c7c8191ed55810294423f3e59ebf799660864862fc1dbd6e6c8d68bd529399426811846e408d8b2fee4ab04fe5'; `
+#     if ((Get-FileHash dotnet.zip -Algorithm sha512).Hash -ne $dotnet_sha512) { `
+#         Write-Host 'CHECKSUM VERIFICATION FAILED!'; `
+#         exit 1; `
+#     }; `
+#     `
+#     Expand-Archive dotnet.zip -force -DestinationPath $Env:ProgramFiles\dotnet; `
+#     Remove-Item -Force dotnet.zip
 
-RUN setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '\dotnet')
+# RUN setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '\dotnet')
 
 #Download Azure DevOps agent
 WORKDIR c:/setup
-ADD https://vstsagentpackage.azureedge.net/agent/2.144.0/vsts-agent-win-x64-2.144.0.zip .
+ADD https://vstsagentpackage.azureedge.net/agent/2.154.3/vsts-agent-win-x64-2.154.3.zip .
 
 COPY InstallAgent.ps1 .
 COPY ConfigureAgent.ps1 .
