@@ -1,6 +1,5 @@
 # escape=`
-# FROM microsoft/dotnet-framework:4.7.2-sdk-windowsservercore-ltsc2016
-FROM mcr.microsoft.com/dotnet/framework/aspnet:4.7.2-windowsservercore-ltsc2019
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.7.2-windowsservercore-ltsc2019
 
 # Set up environment to collect install errors.
 # COPY Install.cmd C:\TEMP\
@@ -54,9 +53,13 @@ RUN Install-PackageProvider -Name chocolatey -RequiredVersion 2.8.5.130 -Force;
 
 # RUN setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '\dotnet')
 
+# Utils
+RUN Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
+    chocolatey install docker -y
+
 #Download Azure DevOps agent
 WORKDIR c:/setup
-ADD https://vstsagentpackage.azureedge.net/agent/2.144.0/vsts-agent-win-x64-2.144.0.zip .
+ADD https://vstsagentpackage.azureedge.net/agent/2.159.2/vsts-agent-win-x64-2.159.2.zip .
 
 COPY InstallAgent.ps1 .
 COPY ConfigureAgent.ps1 .
